@@ -97,10 +97,10 @@ class CodeForcesAPI:
             for i in range(25):
                 contest = contests[i]
                 result.append(
-                    (contest['name'], contest['preparedBy'],
+                    (contest['name'],
                      contest['relativeTimeSeconds']))  # Возвращает для
-                # каждого из 25 соревнований его название, автора и время до
-                # начала раунда
+                # каждого из 25 соревнований его название и время до начала
+                # раунда
 
         return result
 
