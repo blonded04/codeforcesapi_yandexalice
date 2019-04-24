@@ -102,7 +102,7 @@ class CodeForcesAPI:
                 # каждого из 25 соревнований его название и время до начала
                 # раунда
 
-        return result
+        return result[::-1]
 
     def viewRatingChange(self, name, contest_id):  # Позволяет получать
         # изменение рейтинга пользователя по его хендлу и id соревнования
