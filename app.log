@@ -1,0 +1,40 @@
+2019-04-25 21:55:25,364 INFO werkzeug  * Running on http://127.0.0.1:8080/ (Press CTRL+C to quit)
+2019-04-25 21:55:31,227 INFO root Request: None
+2019-04-25 21:55:31,228 ERROR flask.app Exception on /post [POST]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.5/dist-packages/flask/_compat.py", line 35, in reraise
+    raise value
+  File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/valeriy/PycharmProjects/program/alice.py", line 47, in main
+    'session': request.json['session'],
+TypeError: 'NoneType' object is not subscriptable
+2019-04-25 21:55:31,230 INFO werkzeug 127.0.0.1 - - [25/Apr/2019 21:55:31] "POST /post HTTP/1.1" 500 -
+2019-04-25 21:56:42,984 INFO werkzeug  * Running on http://127.0.0.1:8080/ (Press CTRL+C to quit)
+2019-04-25 21:57:05,181 INFO root Request: None
+2019-04-25 21:57:05,182 ERROR flask.app Exception on /post [POST]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.5/dist-packages/flask/_compat.py", line 35, in reraise
+    raise value
+  File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.5/dist-packages/flask/app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/valeriy/PycharmProjects/program/alice.py", line 47, in main
+    'session': request.json['session'],
+TypeError: 'NoneType' object is not subscriptable
+2019-04-25 21:57:05,185 INFO werkzeug 127.0.0.1 - - [25/Apr/2019 21:57:05] "POST /post HTTP/1.1" 500 -
