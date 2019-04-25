@@ -52,9 +52,9 @@ class CodeForcesAPI:
         if json['status'] != 'OK':
             result = [("Некорректный номер записи в блоге")]
         else:
-            result = [(json['result']['authorHandle'], json['result']['title'],
-                       json['result'][
-                           'content'])]  # Возвращает имя автора блога,
+            result = [(json['result']['authorHandle'] + ' пишет:',
+                       'Рейтинг: ' + json['result']['content'],
+                       json['result']['title'])]  # Возвращает имя автора блога,
             # заголовок блога, и текст блога
 
         return result
@@ -73,8 +73,11 @@ class CodeForcesAPI:
         else:
             comments = json['result']
             for comment in comments:
-                result.append((comment['commentatorHandle'], comment['text'],
-                               comment['rating']))
+                result.append((comment['commentatorHandle'] + ' пишет:',
+                               'Рейтинг: ' + str(comment['rating']),
+                               comment['text']))
+                # Возвращает имя автора комментария, рейтинг комментария,
+                # и текст комментария
 
         return result
 
@@ -119,10 +122,11 @@ class CodeForcesAPI:
             ratings = json['result']
             for rating in ratings:
                 if rating['handle'] == name:
-                    result.append((rating['handle'], rating['oldRating'],
-                                   rating['newRating']))  # кортеж с хендлом
-                    # пользователя, старым рейтингом и рейтингом, полученным
-                    # после соревнования
+                    result.append((rating['handle'],
+                                   str(rating['oldRating']) + ' -> ' +
+                                   str(rating['newRating'])))  # Кортеж с
+                    # хендлом пользователя, старым рейтингом и рейтингом,
+                    # полученным после соревнования
                     break
             if len(result) == 0:
                 result.append(("Некорректное имя пользователя"))
@@ -198,8 +202,10 @@ class CodeForcesAPI:
         else:
             posts = json['result']
             for post in posts:
-                result.append((post['authorHandle'], post['title'],
-                               post['id']))  # Возвращает список содержащий
+                result.append(
+                    (post['authorHandle'] + ' пишет пост ' + post['title'],
+                     'id поста: ' + str(post['id'])))  # Возвращает список
+                # содержащий
                 # автора поста, название поста и id поста
 
         return result
@@ -215,8 +221,8 @@ class CodeForcesAPI:
         if json['status'] != 'OK':
             result = [("Некорректное имя пользователя")]
         else:
-            result = [(json['result'][0]['handle'], json['result'][0]['rating'],
-                       json['result'][0]['rank'])]  # Возвращает хендл
+            result = [(json['result'][0]['handle'], json['result'][0]['rank'],
+                       str(json['result'][0]['rating']))]  # Возвращает хендл
             # пользователя, рейтинг и его ранг
 
         return result
@@ -236,8 +242,8 @@ class CodeForcesAPI:
             results = json['result']
             for result in results:
                 result.append((result['handle'], result['contestName'],
-                               result['oldRating'],
-                               result['newRating']))  # Возвращает список
+                               str(result['oldRating']) + ' -> ' +
+                               str(result['newRating'])))  # Возвращает список
                 # хендлов пользователя, названия соревнования, рейтинга до
                 # соревнования и рейнтинга после соревнования
 

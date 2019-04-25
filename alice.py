@@ -24,8 +24,9 @@ import json  # JSON используется для обработки JSON за
 from config import KEY, \
     SECRET  # В файле config.py находятся KEY и SECRET от API codeforces
 from codeforces import \
-    CodeForcesAPI  # В файле codeforces.py находится класс CodeAPI с описанными
-# методами
+    CodeForcesAPI  # В файле codeforces.py находится класс CodeAPI с методами
+
+cf = CodeForcesAPI(KEY, SECRET)  # Связываемся с API CodeForces
 
 app = Flask(__name__)
 
@@ -73,52 +74,159 @@ def handle_dialog(req, res):
         Комманда: Расскажи про запись [blog_id]
         2) Получать комментарии с записи блога по id блога.
         Комманда: Расскажи про комментарии записи [blog_id]
-        3) Получать содержимое блога по id блога.
-        Комманда: Расскажи про запись [blog_id]
-        4) Получать информацию о предстоящих соревнованиях
+        3) Получать информацию о предстоящих соревнованиях
         Комманда: Расскажи про ближайшие соревнования
-        5) Получать информацию об изменении рейтинга на конкретном соревновании 
+        4) Получать информацию об изменении рейтинга на конкретном соревновании 
         по id пользователя и id соревнования.
         Комманда: Расскажи про изменение рейтинга [user_id] на соревновании [
         contest_id]
-        6) Получать список тем задачи по имени задачи.
+        5) Получать список тем задачи по имени задачи.
         Комманда: Расскажи про темы задачи [problem_name]
-        7) Получать список имен длины, которая вам нужна, задач по теме, 
+        6) Получать список имен длины, которая вам нужна, задач по теме, 
         к которой эти задачи принадлежат.
         Комманда: Расскажи про [amount] задач по теме [tag_name]
-        8) Получать список заголвков записей в блоге пользователя по id 
+        7) Получать список заголовков записей в блоге пользователя по id 
         пользователя.
         Комманда: Расскажи про записи пользователя [user_id]
-        9) Получать рейтинг пользователя по id пользователя.
+        8) Получать рейтинг пользователя по id пользователя.
         Комманда: Расскажи о пользователе [user_id]
-        10) Получать историю изменения рейтинга пользователя по id пользователя.
+        9) Получать историю изменения рейтинга пользователя по id пользователя.
         Комманда: Расскажи об изменении рейтинга пользователя [user_id]
         '''
         return
 
-    # Сюда дойдем только, если пользователь не новый,
-    # и разговор с Алисой уже был начат
-    # Обрабатываем ответ пользователя.
-    # В req['request']['original_utterance'] лежит весь текст,
-    # что нам прислал пользователь
-    # Если он написал 'ладно', 'куплю', 'покупаю', 'хорошо',
-    # то мы считаем, что пользователь согласился.
-    # Подумайте, всё ли в этом фрагменте написано "красиво"?
-    if req['request']['original_utterance'].lower() in [
-        'ладно',
-        'куплю',
-        'покупаю',
-        'хорошо'
+    # Для каждой из комманд связываем ее с запросом к CodeForces API
+    if req['request']['original_utterance'].lower().split()[:3] == [
+        'расскажи',
+        'про',
+        'запись'
     ]:
-        # Пользователь согласился, прощаемся.
-        res['response']['text'] = 'Слона можно найти на Яндекс.Маркете!'
-        res['response']['end_session'] = True
-        return
-
-    # Если нет, то убеждаем его купить слона!
-    res['response']['text'] = 'Все говорят "%s", а ты купи слона!' % (
-        req['request']['original_utterance']
-    )
+        # Получаем ответ
+        response = cf.viewBlog(
+            req['request']['original_utterance'].lower().split()[3])
+        result = ""
+        for answer in response:
+            for string in answer:
+                result += string + '\n'
+            result += '\n'
+        # Алиса отвечает пользователю
+        res['response']['text'] = result
+    elif req['request']['original_utterance'].lower().split()[:4] == [
+        'расскажи',
+        'про',
+        'комментарии',
+        'записи'
+    ]:
+        # Получаем ответ
+        response = cf.viewComments(
+            req['request']['original_utterance'].lower.split()[4])
+        result = ""
+        for answer in response:
+            for string in answer:
+                result += string + '\n'
+            result += '\n'
+        # Алиса отвечает пользователю
+        res['response']['text'] = result
+    elif req['request']['original_utterance'].lower().split()[:4] == [
+        'расскажи',
+        'про',
+        'ближайшие',
+        'соревнования'
+    ]:
+        # Получаем ответ
+        response = cf.viewContests()
+        result = "Ближайшие 25 соревнований: \n"
+        for answer in response:
+            for string in answer:
+                result += string + '\n'
+            result += '\n'
+        # Алиса отвечает пользователю
+        res['response']['text'] = result
+    elif req['request']['original_utterance'].lower().split()[:4] == [
+        'расскажи',
+        'про',
+        'изменение',
+        'рейтинга'
+    ]:
+        # Получаем ответ
+        response = cf.viewRatingChange(
+            req['request']['original_utterance'].lower.split()[-1],
+            req['request']['original_utterance'].lower.split()[4])
+        result = ""
+        for answer in response:
+            for string in answer:
+                result += string + '\n'
+            result += '\n'
+        # Алиса отвечает пользователю
+        res['response']['text'] = result
+    elif req['request']['original_utterance'].lower().split()[:4] == [
+        'расскажи',
+        'про',
+        'темы',
+        'задачи'
+    ]:
+        # Получаем ответ
+        response = cf.viewProblem(
+            req['request']['original_utterance'].lower.split()[4])
+        result = ""
+        for answer in response:
+            for string in answer:
+                result += string + '\n'
+            result += '\n'
+        # Алиса отвечает пользователю
+        res['response']['text'] = result
+    elif 'задач по теме' in req['request']['original_utterance']:
+        # Получаем ответ
+        response = cf.viewProblems(
+            req['request']['original_utterance'].lower.split()[-1],
+            req['request']['original_utterance'].lower.split()[2])
+        result = ""
+        for answer in response:
+            for string in answer:
+                result += string + '\n'
+            result += '\n'
+        # Алиса отвечает пользователю
+        res['response']['text'] = result
+    elif 'Расскажи про записи пользователя' in req['request'][
+        'original_utterance']:
+        # Получаем ответ
+        response = cf.viewPosts(
+            req['request']['original_utterance'].lower.split()[-1])
+        result = ""
+        for answer in response:
+            for string in answer:
+                result += string + '\n'
+            result += '\n'
+        # Алиса отвечает пользователю
+        res['response']['text'] = result
+    elif 'Расскажи о пользователе' in req['request'][
+        'original_utterance']:
+        # Получаем ответ
+        response = cf.viewUser(
+            req['request']['original_utterance'].lower.split()[-1])
+        result = ""
+        for answer in response:
+            for string in answer:
+                result += string + '\n'
+            result += '\n'
+        # Алиса отвечает пользователю
+        res['response']['text'] = result
+    elif 'Расскажи об изменении рейтинга пользователя' in req['request'][
+        'original_utterance']:
+        # Получаем ответ
+        response = cf.viewRating(
+            req['request']['original_utterance'].lower.split()[-1])
+        result = ""
+        for answer in response:
+            for string in answer:
+                result += string + '\n'
+            result += '\n'
+        # Алиса отвечает пользователю
+        res['response']['text'] = result
+    else:
+        # Если ни одна из комманд не подходит под маску, просим пользоваться
+        # коммандами
+        res['response']['text'] = 'Пользуйтесь коммандами, я вас не понимаю!'
 
 
 if __name__ == '__main__':
