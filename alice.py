@@ -96,7 +96,7 @@ def handle_dialog(req, res):
     ]:
         # Получаем ответ
         response = cf.viewComments(
-            req['request']['original_utterance'].lower.split()[4])
+            req['request']['original_utterance'].lower().split()[4])
         result = ""
         for answer in response:
             for string in answer:
@@ -127,8 +127,8 @@ def handle_dialog(req, res):
     ]:
         # Получаем ответ
         response = cf.viewRatingChange(
-            req['request']['original_utterance'].lower.split()[-1],
-            req['request']['original_utterance'].lower.split()[4])
+            req['request']['original_utterance'].lower().split()[-1],
+            req['request']['original_utterance'].lower().split()[4])
         result = ""
         for answer in response:
             for string in answer:
@@ -144,7 +144,7 @@ def handle_dialog(req, res):
     ]:
         # Получаем ответ
         response = cf.viewProblem(
-            req['request']['original_utterance'].lower.split()[4])
+            req['request']['original_utterance'].lower().split()[4])
         result = ""
         for answer in response:
             for string in answer:
@@ -155,8 +155,8 @@ def handle_dialog(req, res):
     elif 'задач по теме' in req['request']['original_utterance']:
         # Получаем ответ
         response = cf.viewProblems(
-            req['request']['original_utterance'].lower.split()[-1],
-            req['request']['original_utterance'].lower.split()[2])
+            req['request']['original_utterance'].lower().split()[-1],
+            req['request']['original_utterance'].lower().split()[2])
         result = ""
         for answer in response:
             for string in answer:
@@ -168,7 +168,7 @@ def handle_dialog(req, res):
         'original_utterance']:
         # Получаем ответ
         response = cf.viewPosts(
-            req['request']['original_utterance'].lower.split()[-1])
+            req['request']['original_utterance'].lower().split()[-1])
         result = ""
         for answer in response:
             for string in answer:
@@ -180,7 +180,7 @@ def handle_dialog(req, res):
         'original_utterance']:
         # Получаем ответ
         response = cf.viewUser(
-            req['request']['original_utterance'].lower.split()[-1])
+            req['request']['original_utterance'].lower().split()[-1])
         result = ""
         for answer in response:
             for string in answer:
@@ -192,7 +192,7 @@ def handle_dialog(req, res):
         'original_utterance']:
         # Получаем ответ
         response = cf.viewRating(
-            req['request']['original_utterance'].lower.split()[-1])
+            req['request']['original_utterance'].lower().split()[-1])
         result = ""
         for answer in response:
             for string in answer:
