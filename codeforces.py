@@ -105,7 +105,7 @@ class CodeForcesAPI:
                 # каждого из 25 соревнований его название и время до начала
                 # раунда
 
-        return result[::-1]
+        return result
 
     def viewRatingChange(self, name, contest_id):  # Позволяет получать
         # изменение рейтинга пользователя по его хендлу и id соревнования
@@ -150,7 +150,7 @@ class CodeForcesAPI:
         else:
             problems = json['result']
             for problem in problems:
-                if problem['name'] == problem_name:
+                if problem == problem_name:
                     answer = ""
                     for tag in problem['tags']:
                         answer += tag + ';'
@@ -240,10 +240,10 @@ class CodeForcesAPI:
             result = [("Некорректное имя пользователя")]
         else:
             results = json['result']
-            for result in results:
-                result.append((result['handle'], result['contestName'],
-                               str(result['oldRating']) + ' -> ' +
-                               str(result['newRating'])))  # Возвращает список
+            for res in results:
+                result.append((res['handle'], res['contestName'],
+                               str(res['oldRating']) + ' -> ' +
+                               str(res['newRating'])))  # Возвращает список
                 # хендлов пользователя, названия соревнования, рейтинга до
                 # соревнования и рейнтинга после соревнования
 
