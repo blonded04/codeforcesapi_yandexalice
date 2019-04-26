@@ -87,6 +87,8 @@ def handle_dialog(req, res):
                 result += str(string) + '\n'
             result += '\n'
         # Алиса отвечает пользователю
+        if len(result) == 0:
+            result = " "
         res['response']['text'] = result[:1000]
     elif req['request']['original_utterance'].lower().split()[:4] == [
         'расскажи',
@@ -103,6 +105,8 @@ def handle_dialog(req, res):
                 result += str(string) + '\n'
             result += '\n'
         # Алиса отвечает пользователю
+        if len(result) == 0:
+            result = " "
         res['response']['text'] = result[:1000]
     elif req['request']['original_utterance'].lower().split()[:4] == [
         'расскажи',
@@ -118,6 +122,8 @@ def handle_dialog(req, res):
                 result += str(string) + '\n'
             result += '\n'
         # Алиса отвечает пользователю
+        if len(result) == 0:
+            result = " "
         res['response']['text'] = result[:1000]
     elif req['request']['original_utterance'].lower().split()[:4] == [
         'расскажи',
@@ -135,6 +141,8 @@ def handle_dialog(req, res):
                 result += str(string) + '\n'
             result += '\n'
         # Алиса отвечает пользователю
+        if len(result) == 0:
+            result = " "
         res['response']['text'] = result[:1000]
     elif req['request']['original_utterance'].lower().split()[:4] == [
         'расскажи',
@@ -151,6 +159,8 @@ def handle_dialog(req, res):
                 result += str(string) + '\n'
             result += '\n'
         # Алиса отвечает пользователю
+        if len(result) == 0:
+            result = " "
         res['response']['text'] = result[:1000]
     elif 'задач по теме' in req['request']['original_utterance']:
         # Получаем ответ
@@ -163,6 +173,8 @@ def handle_dialog(req, res):
                 result += str(string) + '\n'
             result += '\n'
         # Алиса отвечает пользователю
+        if len(result) == 0:
+            result = " "
         res['response']['text'] = result[:1000]
     elif 'Расскажи про записи пользователя' in req['request'][
         'original_utterance']:
@@ -175,6 +187,8 @@ def handle_dialog(req, res):
                 result += str(string) + '\n'
             result += '\n'
         # Алиса отвечает пользователю
+        if len(result) == 0:
+            result = " "
         res['response']['text'] = result[:1000]
     elif 'Расскажи о пользователе' in req['request'][
         'original_utterance']:
@@ -187,6 +201,8 @@ def handle_dialog(req, res):
                 result += str(string) + '\n'
             result += '\n'
         # Алиса отвечает пользователю
+        if len(result) == 0:
+            result = " "
         res['response']['text'] = result[:1000]
     elif 'Расскажи об изменении рейтинга пользователя' in req['request'][
         'original_utterance']:
@@ -199,6 +215,8 @@ def handle_dialog(req, res):
                 result += str(string) + '\n'
             result += '\n'
         # Алиса отвечает пользователю
+        if len(result) == 0:
+            result = " "
         res['response']['text'] = result[:1000]
     else:
         # Если ни одна из комманд не подходит под маску, просим пользоваться
