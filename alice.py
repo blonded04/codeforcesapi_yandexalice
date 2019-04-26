@@ -84,7 +84,7 @@ def handle_dialog(req, res):
         result = ""
         for answer in response:
             for string in answer:
-                result += string + '\n'
+                result += str(string) + '\n'
             result += '\n'
         # Алиса отвечает пользователю
         res['response']['text'] = result
@@ -100,7 +100,7 @@ def handle_dialog(req, res):
         result = ""
         for answer in response:
             for string in answer:
-                result += string + '\n'
+                result += str(string) + '\n'
             result += '\n'
         # Алиса отвечает пользователю
         res['response']['text'] = result
@@ -115,7 +115,7 @@ def handle_dialog(req, res):
         result = "Ближайшие 25 соревнований: \n"
         for answer in response:
             for string in answer:
-                result += string + '\n'
+                result += str(string) + '\n'
             result += '\n'
         # Алиса отвечает пользователю
         res['response']['text'] = result
@@ -132,7 +132,7 @@ def handle_dialog(req, res):
         result = ""
         for answer in response:
             for string in answer:
-                result += string + '\n'
+                result += str(string) + '\n'
             result += '\n'
         # Алиса отвечает пользователю
         res['response']['text'] = result
@@ -148,7 +148,7 @@ def handle_dialog(req, res):
         result = ""
         for answer in response:
             for string in answer:
-                result += string + '\n'
+                result += str(string) + '\n'
             result += '\n'
         # Алиса отвечает пользователю
         res['response']['text'] = result
@@ -160,7 +160,7 @@ def handle_dialog(req, res):
         result = ""
         for answer in response:
             for string in answer:
-                result += string + '\n'
+                result += str(string) + '\n'
             result += '\n'
         # Алиса отвечает пользователю
         res['response']['text'] = result
@@ -172,7 +172,7 @@ def handle_dialog(req, res):
         result = ""
         for answer in response:
             for string in answer:
-                result += string + '\n'
+                result += str(string) + '\n'
             result += '\n'
         # Алиса отвечает пользователю
         res['response']['text'] = result
@@ -184,7 +184,7 @@ def handle_dialog(req, res):
         result = ""
         for answer in response:
             for string in answer:
-                result += string + '\n'
+                result += str(string) + '\n'
             result += '\n'
         # Алиса отвечает пользователю
         res['response']['text'] = result
@@ -196,7 +196,7 @@ def handle_dialog(req, res):
         result = ""
         for answer in response:
             for string in answer:
-                result += string + '\n'
+                result += str(string) + '\n'
             result += '\n'
         # Алиса отвечает пользователю
         res['response']['text'] = result
