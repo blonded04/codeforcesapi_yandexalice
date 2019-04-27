@@ -25,8 +25,11 @@ from config import KEY, \
     SECRET  # В файле config.py находятся KEY и SECRET от API codeforces
 from codeforces import \
     CodeForcesAPI  # В файле codeforces.py находится класс CodeAPI с методами
+import html2text  # Библиотека для конвертации html текста записей в блоге в сообщения
 
 cf = CodeForcesAPI(KEY, SECRET)  # Связываемся с API CodeForces
+h = html2text.HTML2Text()
+h.ignore_links = False
 
 app = Flask(__name__)
 
@@ -89,7 +92,7 @@ def handle_dialog(req, res):
         # Алиса отвечает пользователю
         if len(result) == 0:
             result = " "
-        res['response']['text'] = result[:1000]
+        res['response']['text'] = h.handle(result[:1023])
     elif req['request']['original_utterance'].lower().split()[:4] == [
         'расскажи',
         'про',
@@ -107,7 +110,7 @@ def handle_dialog(req, res):
         # Алиса отвечает пользователю
         if len(result) == 0:
             result = " "
-        res['response']['text'] = result[:1000]
+        res['response']['text'] = h.handle(result[:1023])
     elif req['request']['original_utterance'].lower().split()[:4] == [
         'расскажи',
         'про',
@@ -124,7 +127,7 @@ def handle_dialog(req, res):
         # Алиса отвечает пользователю
         if len(result) == 0:
             result = " "
-        res['response']['text'] = result[:1000]
+        res['response']['text'] = h.handle(result[:1023])
     elif req['request']['original_utterance'].lower().split()[:4] == [
         'расскажи',
         'про',
@@ -143,7 +146,7 @@ def handle_dialog(req, res):
         # Алиса отвечает пользователю
         if len(result) == 0:
             result = " "
-        res['response']['text'] = result[:1000]
+        res['response']['text'] = h.handle(result[:1023])
     elif req['request']['original_utterance'].lower().split()[:4] == [
         'расскажи',
         'про',
@@ -161,7 +164,7 @@ def handle_dialog(req, res):
         # Алиса отвечает пользователю
         if len(result) == 0:
             result = " "
-        res['response']['text'] = result[:1000]
+        res['response']['text'] = h.handle(result[:1023])
     elif 'задач по теме' in req['request']['original_utterance']:
         # Получаем ответ
         response = cf.viewProblems(
@@ -175,7 +178,7 @@ def handle_dialog(req, res):
         # Алиса отвечает пользователю
         if len(result) == 0:
             result = " "
-        res['response']['text'] = result[:1000]
+        res['response']['text'] = h.handle(result[:1023])
     elif 'Расскажи про записи пользователя' in req['request'][
         'original_utterance']:
         # Получаем ответ
@@ -189,7 +192,7 @@ def handle_dialog(req, res):
         # Алиса отвечает пользователю
         if len(result) == 0:
             result = " "
-        res['response']['text'] = result[:1000]
+        res['response']['text'] = h.handle(result[:1023])
     elif 'Расскажи о пользователе' in req['request'][
         'original_utterance']:
         # Получаем ответ
@@ -203,7 +206,7 @@ def handle_dialog(req, res):
         # Алиса отвечает пользователю
         if len(result) == 0:
             result = " "
-        res['response']['text'] = result[:1000]
+        res['response']['text'] = h.handle(result[:1023])
     elif 'Расскажи об изменении рейтинга пользователя' in req['request'][
         'original_utterance']:
         # Получаем ответ
@@ -217,7 +220,7 @@ def handle_dialog(req, res):
         # Алиса отвечает пользователю
         if len(result) == 0:
             result = " "
-        res['response']['text'] = result[:1000]
+        res['response']['text'] = h.handle(result[:1023])
     else:
         # Если ни одна из комманд не подходит под маску, просим пользоваться
         # коммандами
